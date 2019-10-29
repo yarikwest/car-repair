@@ -144,6 +144,7 @@ public class OrderDao {
             while (resultSet.next()) {
                 orders.add(createOrder(resultSet));
             }
+            resultSet.close();
             return orders;
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -162,6 +163,7 @@ public class OrderDao {
             while (resultSet.next()) {
                 orders.add(createOrder(resultSet));
             }
+            resultSet.close();
             return orders;
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -200,7 +202,9 @@ public class OrderDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             LOGGER.info(preparedStatement);
             if (resultSet.next()) {
-                return resultSet.getDouble("profit");
+                double profit = resultSet.getDouble("profit");
+                resultSet.close();
+                return profit;
             }
         } catch (SQLException e) {
             LOGGER.error(e);
