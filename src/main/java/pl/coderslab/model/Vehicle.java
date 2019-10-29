@@ -23,6 +23,16 @@ public class Vehicle {
         this.ownerId = ownerId;
     }
 
+    public Vehicle(int id, String model, String brand, Date yearOfProd, String registry, Date nextInspection, int ownerId) {
+        this.id = id;
+        this.model = model;
+        this.brand = brand;
+        this.yearOfProd = yearOfProd;
+        this.registry = registry;
+        this.nextInspection = nextInspection;
+        this.ownerId = ownerId;
+    }
+
     public int getId() {
         return id;
     }

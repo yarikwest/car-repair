@@ -17,6 +17,13 @@ public class Customer {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public Customer(int id, String firstName, String lastName, Date dateOfBirth) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public int getId() {
         return id;
     }

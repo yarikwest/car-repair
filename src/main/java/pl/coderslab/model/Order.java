@@ -7,6 +7,7 @@ public class Order {
     private Date acceptRepair;
     private Date planStartRepair;
     private Date startRepair;
+    private Date endRepair;
     private int employeeId;
     private String problemDescription;
     private String repairDescription;
@@ -20,12 +21,32 @@ public class Order {
     public Order() {
     }
 
-    public Order(Date acceptRepair, Date planStartRepair, Date startRepair, int employeeId
+    public Order(Date acceptRepair, Date planStartRepair, Date startRepair, Date endRepair, int employeeId
             , String problemDescription, String repairDescription, int statusId, int vehicleId, double costOfRepair
             , double costOfParts, double costOfWorkHour, double numberWorkHour) {
         this.acceptRepair = acceptRepair;
         this.planStartRepair = planStartRepair;
         this.startRepair = startRepair;
+        this.endRepair = endRepair;
+        this.employeeId = employeeId;
+        this.problemDescription = problemDescription;
+        this.repairDescription = repairDescription;
+        this.statusId = statusId;
+        this.vehicleId = vehicleId;
+        this.costOfRepair = costOfRepair;
+        this.costOfParts = costOfParts;
+        this.costOfWorkHour = costOfWorkHour;
+        this.numberWorkHour = numberWorkHour;
+    }
+
+    public Order(int id, Date acceptRepair, Date planStartRepair, Date startRepair, Date endRepair, int employeeId
+            , String problemDescription, String repairDescription, int statusId, int vehicleId, double costOfRepair
+            , double costOfParts, double costOfWorkHour, double numberWorkHour) {
+        this.id = id;
+        this.acceptRepair = acceptRepair;
+        this.planStartRepair = planStartRepair;
+        this.startRepair = startRepair;
+        this.endRepair = endRepair;
         this.employeeId = employeeId;
         this.problemDescription = problemDescription;
         this.repairDescription = repairDescription;
@@ -67,6 +88,14 @@ public class Order {
 
     public void setStartRepair(Date startRepair) {
         this.startRepair = startRepair;
+    }
+
+    public Date getEndRepair() {
+        return endRepair;
+    }
+
+    public void setEndRepair(Date endRepair) {
+        this.endRepair = endRepair;
     }
 
     public int getEmployeeId() {

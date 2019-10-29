@@ -21,6 +21,16 @@ public class Employee {
         this.costOfWorkHour = costOfWorkHour;
     }
 
+    public Employee(int id, String firstName, String lastName, String address, String telephone, String note, double costOfWorkHour) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.telephone = telephone;
+        this.note = note;
+        this.costOfWorkHour = costOfWorkHour;
+    }
+
     public int getId() {
         return id;
     }
