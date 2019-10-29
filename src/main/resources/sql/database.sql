@@ -1,8 +1,8 @@
 create table customers
 (
     id            int auto_increment,
-    first_name    varchar(50),
-    last_name     varchar(50),
+    first_name    varchar(50) not null,
+    last_name     varchar(50) not null,
     date_of_birth date,
     primary key (id)
 );
@@ -23,8 +23,8 @@ create table vehicles
 create table employees
 (
     id                int auto_increment,
-    first_name        varchar(50),
-    last_name         varchar(50),
+    first_name        varchar(50) not null,
+    last_name         varchar(50) not null,
     address           varchar(255),
     telephone         varchar(20),
     note              varchar(255),
@@ -45,6 +45,7 @@ create table orders
     accept_repair       date,
     plan_start_repair   date,
     start_repair        date,
+    end_repair          date,
     employee_id         int,
     problem_description varchar(255),
     repair_description  varchar(255),
