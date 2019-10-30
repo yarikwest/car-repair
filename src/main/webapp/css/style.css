@@ -1,0 +1,17 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+hr {
+    margin: 25px 0;
+}
+.btn-add{
+    margin: 0 70px 20px;
+}

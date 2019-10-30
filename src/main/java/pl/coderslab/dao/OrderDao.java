@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 public class OrderDao {
+    private StatusDao statusDao = new StatusDao();
+    private EmployeeDao employeeDao = new EmployeeDao();
+    private VehicleDao vehicleDao = new VehicleDao();
+
     private static final Logger LOGGER = LogManager.getLogger(OrderDao.class.getName());
 
     private static final String CREATE_QUERY = "insert into orders (accept_repair, plan_start_repair, start_repair" +
@@ -25,8 +29,9 @@ public class OrderDao {
     private static final String DELETE_QUERY = "delete from orders where id = ?";
     private static final String FIND_ALL_QUERY = "select * from orders";
     private static final String FIND_ALL_BY_VEHICLE_ID_QUERY = "select * from orders where vehicle_id = ?";
+    private static final String FIND_ALL_BY_STATUS_ID_QUERY = "select * from orders where status_id = ?";
     private static final String FIND_ALL_BY_EMPLOYEE_ID_AND_STATUS_QUERY = "select * from orders where " +
-            "employee_id = ? and start_repair = 3";
+            "employee_id = ? and status_id = 3";
     private static final String CALC_WORK_HOUR_QUERY = "select concat(e.first_name, ' ', e.last_name) as name" +
             ", SUM(o.number_work_hour) as sum_work_hour from orders o join employees e on o.employee_id = e.id" +
             " where o.start_repair between cast(? as date) and cast(? as date) group by o.employee_id";
@@ -41,11 +46,11 @@ public class OrderDao {
             preparedStatement.setDate(2, order.getPlanStartRepair());
             preparedStatement.setDate(3, order.getStartRepair());
             preparedStatement.setDate(4, order.getEndRepair());
-            preparedStatement.setInt(5, order.getEmployeeId());
+            preparedStatement.setInt(5, order.getEmployee().getId());
             preparedStatement.setString(6, order.getProblemDescription());
             preparedStatement.setString(7, order.getRepairDescription());
-            preparedStatement.setInt(8, order.getStatusId());
-            preparedStatement.setInt(9, order.getVehicleId());
+            preparedStatement.setInt(8, order.getStatus().getId());
+            preparedStatement.setInt(9, order.getVehicle().getId());
             preparedStatement.setDouble(10, order.getCostOfRepair());
             preparedStatement.setDouble(11, order.getCostOfParts());
             preparedStatement.setDouble(12, order.getCostOfWorkHour());
@@ -89,11 +94,11 @@ public class OrderDao {
             preparedStatement.setDate(2, order.getPlanStartRepair());
             preparedStatement.setDate(3, order.getStartRepair());
             preparedStatement.setDate(4, order.getEndRepair());
-            preparedStatement.setInt(5, order.getEmployeeId());
+            preparedStatement.setInt(5, order.getEmployee().getId());
             preparedStatement.setString(6, order.getProblemDescription());
             preparedStatement.setString(7, order.getRepairDescription());
-            preparedStatement.setInt(8, order.getStatusId());
-            preparedStatement.setInt(9, order.getVehicleId());
+            preparedStatement.setInt(8, order.getStatus().getId());
+            preparedStatement.setInt(9, order.getVehicle().getId());
             preparedStatement.setDouble(10, order.getCostOfRepair());
             preparedStatement.setDouble(11, order.getCostOfParts());
             preparedStatement.setDouble(12, order.getCostOfWorkHour());
@@ -150,6 +155,25 @@ public class OrderDao {
             LOGGER.error(e);
         }
         LOGGER.info("Rows with vehicle_id:" + vehicleId + " not exist");
+        return orders;
+    }
+
+    public List<Order> findAllByStatusId(int statusId) {
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = DbUtil.getConn();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_STATUS_ID_QUERY)) {
+            preparedStatement.setInt(1, statusId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            LOGGER.info(preparedStatement);
+            while (resultSet.next()) {
+                orders.add(createOrder(resultSet));
+            }
+            resultSet.close();
+            return orders;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        LOGGER.info("Rows with vehicle_id:" + statusId + " not exist");
         return orders;
     }
 
@@ -220,11 +244,11 @@ public class OrderDao {
                 resultSet.getDate("plan_start_repair"),
                 resultSet.getDate("start_repair"),
                 resultSet.getDate("end_repair"),
-                resultSet.getInt("employee_id"),
+                employeeDao.read(resultSet.getInt("employee_id")),
                 resultSet.getString("problem_description"),
                 resultSet.getString("repair_description"),
-                resultSet.getInt("status_id"),
-                resultSet.getInt("vehicle_id"),
+                statusDao.read(resultSet.getInt("status_id")),
+                vehicleDao.read(resultSet.getInt("vehicle_id")),
                 resultSet.getDouble("cost_of_repair"),
                 resultSet.getDouble("cost_of_parts"),
                 resultSet.getDouble("cost_of_work_hour"),
