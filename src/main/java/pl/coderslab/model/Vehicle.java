@@ -6,7 +6,7 @@ public class Vehicle {
     private int id;
     private String model;
     private String brand;
-    private Date yearOfProd;
+    private Short yearOfProd;
     private String registry;
     private Date nextInspection;
     private int ownerId;
@@ -14,7 +14,7 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(String model, String brand, Date yearOfProd, String registry, Date nextInspection, int ownerId) {
+    public Vehicle(String model, String brand, Short yearOfProd, String registry, Date nextInspection, int ownerId) {
         this.model = model;
         this.brand = brand;
         this.yearOfProd = yearOfProd;
@@ -23,7 +23,7 @@ public class Vehicle {
         this.ownerId = ownerId;
     }
 
-    public Vehicle(int id, String model, String brand, Date yearOfProd, String registry, Date nextInspection, int ownerId) {
+    public Vehicle(int id, String model, String brand, Short yearOfProd, String registry, Date nextInspection, int ownerId) {
         this.id = id;
         this.model = model;
         this.brand = brand;
@@ -57,11 +57,11 @@ public class Vehicle {
         this.brand = brand;
     }
 
-    public Date getYearOfProd() {
+    public Short getYearOfProd() {
         return yearOfProd;
     }
 
-    public void setYearOfProd(Date yearOfProd) {
+    public void setYearOfProd(Short yearOfProd) {
         this.yearOfProd = yearOfProd;
     }
 

@@ -12,3 +12,13 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.modal').modal();
 });
+
+//Initialization to open popup calendar
+$(document).ready(function(){
+    $('.datepicker').datepicker({format: 'yyyy-mm-dd', showClearBtn: true});
+});
+
+//Initialization for tooltips
+$(document).ready(function(){
+    $('.tooltipped').tooltip();
+});

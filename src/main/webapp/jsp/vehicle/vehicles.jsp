@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Employees</title>
+    <title>Vehicles <c:if test="${ownerName != null}">of ${ownerName}</c:if></title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -11,38 +11,37 @@
 </head>
 <body>
 <%@include file="../header.jsp" %>
-<h2>Pracownicy</h2>
+<h2>Pojazdy <c:if test="${ownerName != null}">klienta ${ownerName}</c:if></h2>
 <hr>
 <main>
-    <a href="/employees/add" class="btn-floating btn-large waves-effect waves-light red btn-add tooltipped"
-       data-position="bottom" data-tooltip="dodaj"><i
+    <a href="/vehicles/add?ownerId=${ownerId}"
+       class="btn-floating btn-large waves-effect waves-light red btn-add tooltipped" data-position="bottom"
+       data-tooltip="dodaj"><i
             class="material-icons">add</i></a>
     <table class="highlight centered">
         <thead>
         <tr>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Adres</th>
-            <th>Telefon</th>
-            <th>Notatka</th>
-            <th>Koszt roboczogodziny</th>
-            <th>Zlecenia</th>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Rok produkcji</th>
+            <th>Nr.rejestracyjny</th>
+            <th>Następny przegląd</th>
+            <th>Historia napraw</th>
             <th colspan="2">Więcej</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="employee" items="${employees}" varStatus="iter">
+        <c:forEach var="vehicle" items="${vehicles}" varStatus="iter">
             <tr>
-                <td>${employee.firstName}</td>
-                <td>${employee.lastName}</td>
-                <td>${employee.address}</td>
-                <td>${employee.telephone}</td>
-                <td>${employee.note}</td>
-                <td>${employee.costOfWorkHour}</td>
-                <td><a href="/orders?employeeId=${employee.id}&employeeName=${employee.firstName} ${employee.lastName}"
-                       class="tooltipped" data-position="bottom" data-tooltip="zlecenia"><i
-                        class="material-icons">visibility</i></a></td>
-                <td><a href="/employees/edit?id=${employee.id}" class="tooltipped" data-position="bottom"
+                <td>${vehicle.brand}</td>
+                <td>${vehicle.model}</td>
+                <td>${vehicle.yearOfProd}</td>
+                <td>${vehicle.registry}</td>
+                <td>${vehicle.nextInspection}</td>
+                <td><a href="/vehicles/history?id=${vehicle.id}&vehicleName=${vehicle.brand} ${vehicle.model}"
+                       class="tooltipped" data-position="bottom" data-tooltip="historia"><i
+                        class="material-icons">history</i></a></td>
+                <td><a href="/vehicles/edit?id=${vehicle.id}" class="tooltipped" data-position="bottom"
                        data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>
                 <td>
                     <!-- Modal Trigger -->
@@ -51,10 +50,10 @@
                     <!-- Modal Structure -->
                     <div id="modal${iter.index}" class="modal">
                         <div class="modal-content">
-                            <h4>Czy napewno chcesz usunąć pracownika ${employee.firstName} ${employee.lastName}?</h4>
+                            <h4>Czy napewno chcesz usunąć samochód ${vehicle.brand} ${vehicle.model}?</h4>
                         </div>
                         <div class="modal-footer">
-                            <a href="/employees/delete?id=${employee.id}"
+                            <a href="/vehicles/delete?id=${vehicle.id}&ownerId=${ownerId}"
                                class="modal-close waves-effect waves-green btn-flat">Usuń</a>
                         </div>
                     </div>

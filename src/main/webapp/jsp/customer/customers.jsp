@@ -14,7 +14,8 @@
 <h2>Klienci</h2>
 <hr>
 <main>
-    <a href="/customers/add" class="btn-floating btn-large waves-effect waves-light red btn-add"><i
+    <a href="/customers/add" class="btn-floating btn-large waves-effect waves-light red btn-add tooltipped"
+       data-position="bottom" data-tooltip="dodaj"><i
             class="material-icons">add</i></a>
     <table class="highlight centered">
         <thead>
@@ -33,13 +34,17 @@
                 <td>${customer.firstName}</td>
                 <td>${customer.lastName}</td>
                 <td>${customer.dateOfBirth}</td>
-                <td><a href="/vehicles?ownerId=${customer.id}&ownerName=${customer.firstName} ${customer.lastName}"><i
+                <td><a href="/vehicles?ownerId=${customer.id}&ownerName=${customer.firstName} ${customer.lastName}"
+                       class="tooltipped" data-position="bottom" data-tooltip="pojazdy"><i
                         class="material-icons">directions_car</i></a></td>
-                <td><a href="/orders?customerId=${customer.id}"><i class="material-icons">visibility</i></a></td>
-                <td><a href="/customers/edit?id=${customer.id}"><i class="material-icons">edit</i></a></td>
+                <td><a href="/orders?customerId=${customer.id}" class="tooltipped" data-position="bottom"
+                       data-tooltip="zlecenia"><i class="material-icons">visibility</i></a></td>
+                <td><a href="/customers/edit?id=${customer.id}" class="tooltipped" data-position="bottom"
+                       data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>
                 <td>
                     <!-- Modal Trigger -->
-                    <a class="modal-trigger" href="#modal${iter.index}"><i class="material-icons">delete</i></a>
+                    <a class="modal-trigger tooltipped" href="#modal${iter.index}" data-position="bottom"
+                       data-tooltip="usuń"><i class="material-icons">delete</i></a>
                     <!-- Modal Structure -->
                     <div id="modal${iter.index}" class="modal">
                         <div class="modal-content">

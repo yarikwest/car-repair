@@ -29,7 +29,7 @@ public class VehicleDao {
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, vehicle.getModel());
             preparedStatement.setString(2, vehicle.getBrand());
-            preparedStatement.setDate(3, vehicle.getYearOfProd());
+            preparedStatement.setShort(3, vehicle.getYearOfProd());
             preparedStatement.setString(4, vehicle.getRegistry());
             preparedStatement.setDate(5, vehicle.getNextInspection());
             preparedStatement.setInt(6, vehicle.getOwnerId());
@@ -58,7 +58,7 @@ public class VehicleDao {
                 vehicle.setId(resultSet.getInt("id"));
                 vehicle.setModel(resultSet.getString("model"));
                 vehicle.setBrand(resultSet.getString("brand"));
-                vehicle.setYearOfProd(resultSet.getDate("year_of_prod"));
+                vehicle.setYearOfProd(resultSet.getShort("year_of_prod"));
                 vehicle.setRegistry(resultSet.getString("registry"));
                 vehicle.setNextInspection(resultSet.getDate("next_inspection"));
                 vehicle.setOwnerId(resultSet.getInt("owner_id"));
@@ -78,7 +78,7 @@ public class VehicleDao {
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
             preparedStatement.setString(1, vehicle.getModel());
             preparedStatement.setString(2, vehicle.getBrand());
-            preparedStatement.setDate(3, vehicle.getYearOfProd());
+            preparedStatement.setShort(3, vehicle.getYearOfProd());
             preparedStatement.setString(4, vehicle.getRegistry());
             preparedStatement.setDate(5, vehicle.getNextInspection());
             preparedStatement.setInt(6, vehicle.getOwnerId());
@@ -113,7 +113,7 @@ public class VehicleDao {
                         resultSet.getInt("id"),
                         resultSet.getString("model"),
                         resultSet.getString("brand"),
-                        resultSet.getDate("year_of_prod"),
+                        resultSet.getShort("year_of_prod"),
                         resultSet.getString("registry"),
                         resultSet.getDate("next_inspection"),
                         resultSet.getInt("owner_id")
@@ -138,7 +138,7 @@ public class VehicleDao {
                         resultSet.getInt("id"),
                         resultSet.getString("model"),
                         resultSet.getString("brand"),
-                        resultSet.getDate("year_of_prod"),
+                        resultSet.getShort("year_of_prod"),
                         resultSet.getString("registry"),
                         resultSet.getDate("next_inspection"),
                         resultSet.getInt("owner_id")

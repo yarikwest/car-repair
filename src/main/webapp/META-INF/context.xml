@@ -6,7 +6,7 @@
               username="root"
               password="coderslab"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              connectionProperties="useUnicode=yes;characterEncoding=utf8;serverTimezone=GMT+2;useSSL=false;"
+              connectionProperties="useUnicode=yes;characterEncoding=utf8;serverTimezone=GMT+2;useSSL=false;yearIsDateType=false"
               url="jdbc:mysql://localhost:3306/car_repair"
               maxTotal="100"
               maxIdle="30"
