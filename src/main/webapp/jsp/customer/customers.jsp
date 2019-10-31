@@ -37,7 +37,8 @@
                 <td><a href="/vehicles?ownerId=${customer.id}&ownerName=${customer.firstName} ${customer.lastName}"
                        class="tooltipped" data-position="bottom" data-tooltip="pojazdy"><i
                         class="material-icons">directions_car</i></a></td>
-                <td><a href="/orders?customerId=${customer.id}" class="tooltipped" data-position="bottom"
+                <td><a href="/orders?customerId=${customer.id}&customerName=${customer.firstName} ${customer.lastName}"
+                       class="tooltipped" data-position="bottom"
                        data-tooltip="zlecenia"><i class="material-icons">visibility</i></a></td>
                 <td><a href="/customers/edit?id=${customer.id}" class="tooltipped" data-position="bottom"
                        data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>

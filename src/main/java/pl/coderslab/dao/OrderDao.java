@@ -32,6 +32,8 @@ public class OrderDao {
     private static final String FIND_ALL_BY_STATUS_ID_QUERY = "select * from orders where status_id = ?";
     private static final String FIND_ALL_BY_EMPLOYEE_ID_AND_STATUS_QUERY = "select * from orders where " +
             "employee_id = ? and status_id = 3";
+    private static final String FIND_ALL_BY_CUSTOMER_ID_QUERY = "select o.* from orders o left join vehicles v on " +
+            "o.vehicle_id = v.id left join customers c on v.owner_id = c.id where c.id = ?";
     private static final String CALC_WORK_HOUR_QUERY = "select concat(e.first_name, ' ', e.last_name) as name" +
             ", SUM(o.number_work_hour) as sum_work_hour from orders o join employees e on o.employee_id = e.id" +
             " where o.start_repair between cast(? as date) and cast(? as date) group by o.employee_id";
@@ -140,60 +142,19 @@ public class OrderDao {
     }
 
     public List<Order> findAllByVehicleId(int vehicleId) {
-        List<Order> orders = new ArrayList<>();
-        try (Connection connection = DbUtil.getConn();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_VEHICLE_ID_QUERY)) {
-            preparedStatement.setInt(1, vehicleId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            LOGGER.info(preparedStatement);
-            while (resultSet.next()) {
-                orders.add(createOrder(resultSet));
-            }
-            resultSet.close();
-            return orders;
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
-        LOGGER.info("Rows with vehicle_id:" + vehicleId + " not exist");
-        return orders;
+        return getOrders(vehicleId, FIND_ALL_BY_VEHICLE_ID_QUERY);
     }
 
     public List<Order> findAllByStatusId(int statusId) {
-        List<Order> orders = new ArrayList<>();
-        try (Connection connection = DbUtil.getConn();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_STATUS_ID_QUERY)) {
-            preparedStatement.setInt(1, statusId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            LOGGER.info(preparedStatement);
-            while (resultSet.next()) {
-                orders.add(createOrder(resultSet));
-            }
-            resultSet.close();
-            return orders;
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
-        LOGGER.info("Rows with vehicle_id:" + statusId + " not exist");
-        return orders;
+        return getOrders(statusId, FIND_ALL_BY_STATUS_ID_QUERY);
     }
 
     public List<Order> findAllByEmployeeId(int employeeId) {
-        List<Order> orders = new ArrayList<>();
-        try (Connection connection = DbUtil.getConn();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_EMPLOYEE_ID_AND_STATUS_QUERY)) {
-            preparedStatement.setInt(1, employeeId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            LOGGER.info(preparedStatement);
-            while (resultSet.next()) {
-                orders.add(createOrder(resultSet));
-            }
-            resultSet.close();
-            return orders;
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
-        LOGGER.info("Rows with employee_id:" + employeeId + " and status 'W naprawie' not exist");
-        return orders;
+        return getOrders(employeeId, FIND_ALL_BY_EMPLOYEE_ID_AND_STATUS_QUERY);
+    }
+
+    public List<Order> findAllByCustomerId(int customerId) {
+        return getOrders(customerId, FIND_ALL_BY_CUSTOMER_ID_QUERY);
     }
 
     public Map<String, Double> calcWorkHour(Date startDate, Date endDate) {
@@ -234,6 +195,25 @@ public class OrderDao {
             LOGGER.error(e);
         }
         return null;
+    }
+
+    private List<Order> getOrders(int id, String query) {
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = DbUtil.getConn();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            LOGGER.info(preparedStatement);
+            while (resultSet.next()) {
+                orders.add(createOrder(resultSet));
+            }
+            resultSet.close();
+            return orders;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        LOGGER.info("Rows with id:" + id + " not exist");
+        return orders;
     }
 
     //Method for creating new Order with his all instance variables
