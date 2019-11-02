@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @WebServlet("/employees")
 public class EmployeesServlet extends HttpServlet {
-    EmployeeDao employeeDao = new EmployeeDao();
+    private EmployeeDao employeeDao = new EmployeeDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

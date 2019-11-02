@@ -11,35 +11,44 @@
 </head>
 <body>
 <%@include file="jsp/header.jsp" %>
-<h2>Strona główna</h2>
-<hr>
 <main>
-    <table class="highlight centered">
-        <thead>
-        <tr>
-            <th>Data przyjęcia do naprawy</th>
-            <th>Data rozpoczęcia naprawy</th>
-            <th>Przypisany do naprawy pracownik</th>
-            <th>Opis problemu</th>
-            <th>Pojazd którego dotyczy naprawa</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="order" items="${orders}">
-            <tr>
-                <td>${order.acceptRepair}</td>
-                <td>${order.startRepair}</td>
-                <td>${order.employee.firstName} ${order.employee.lastName}</td>
-                <td>${order.problemDescription}</td>
-                <td>${order.vehicle.registry} ${order.vehicle.model}</td>
-                <td>${order.status.title}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <div class="row row-container">
+        <jsp:include page="jsp/navbar.jsp"/>
+        <div class="col s12 l9">
+            <h5>Aktualnie prowadzone naprawy</h5>
+            <div class="card">
+                <div class="card-content">
+                    <div class="table-overflow">
+                        <table class="highlight centered responsive-table">
+                            <thead>
+                            <tr>
+                                <th>Data przyjęcia do naprawy</th>
+                                <th>Data rozpoczęcia naprawy</th>
+                                <th>Przypisany do naprawy pracownik</th>
+                                <th>Opis problemu</th>
+                                <th>Pojazd którego dotyczy naprawa</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="order" items="${orders}">
+                                <tr>
+                                    <td>${order.acceptRepair}</td>
+                                    <td>${order.startRepair}</td>
+                                    <td>${order.employee.firstName} ${order.employee.lastName}</td>
+                                    <td>${order.problemDescription}</td>
+                                    <td>${order.vehicle.registry} ${order.vehicle.model}</td>
+                                    <td>${order.status.title}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
-<hr>
 <%@include file="jsp/footer.jsp" %>
 <script type="text/javascript" src="<c:url value="js/jquery-3.4.1.slim.min.js"/>"></script>
 <script type="text/javascript" src="<c:url value="js/materialize.min.js"/>"></script>

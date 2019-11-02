@@ -3,15 +3,85 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: #eeeeee;
 }
 
 main {
     flex: 1 0 auto;
 }
 
-hr {
-    margin: 25px 0;
+strong {
+    font-weight: bold;
 }
-.btn-add{
-    margin: 0 70px 20px;
+
+form.container {
+    margin: 36px auto 80px;
 }
+
+.col h5 {
+    text-transform: uppercase;
+    margin: 20px 0;
+}
+
+.table-overflow {
+    overflow-x: auto;
+}
+
+.btn-add {
+    margin: 0 30px;
+}
+
+.row-margin0 {
+    margin-bottom: 0;
+}
+
+.row-margin0 span {
+    height: 48px;
+    line-height: 48px;
+    margin-left: 20px;
+}
+
+.row-container {
+    margin: 20px;
+}
+
+.collection-own {
+    border: none;
+}
+
+.collection-own .collection-item-own {
+    background-color: transparent;
+    border-bottom: none;
+}
+
+.collection-own .collection-item-own i {
+    margin-right: 15px;
+    display: block;
+    float: left;
+}
+
+.tabs .tab a {
+    color: black;
+}
+
+.tabs .indicator {
+    background-color: #26a69a;
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: rgba(38, 166, 154, 0.2);
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    color: #26a69a;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+    color: black;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
+    color: #26a69a;
+}
+
+

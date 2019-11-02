@@ -1,24 +1,14 @@
-//Initialization for select elements in Form
 $(document).ready(function () {
-    $('select').formSelect();
+    $('select').formSelect(); //Initialization for select elements in Form
+    $('textarea').characterCounter(); //Initialization for character counter
+    $('.modal').modal(); //Initialization to open a modal using a trigger:
+    $('.sidenav').sidenav(); //Initialization to open slide out menu
+    $('.tooltipped').tooltip(); //Initialization for tooltips
+    $('.tabs').tabs(); //Initialization for tabs
+    $('.datepicker').datepicker({format: 'yyyy-mm-dd', showClearBtn: true}); //Initialization to open popup calendar
 });
 
-//Initialization to open slide out menu
-$(document).ready(function () {
-    $('.sidenav').sidenav();
-});
-
-//Initialization to open a modal using a trigger:
-$(document).ready(function () {
-    $('.modal').modal();
-});
-
-//Initialization to open popup calendar
-$(document).ready(function(){
-    $('.datepicker').datepicker({format: 'yyyy-mm-dd', showClearBtn: true});
-});
-
-//Initialization for tooltips
-$(document).ready(function(){
-    $('.tooltipped').tooltip();
+//Auto filling of value for costOfWorkHour
+$('#employee').change(function () {
+    $("#cost_of_work_hour").val($('#employee option:selected').data('costOfWorkHour'));
 });

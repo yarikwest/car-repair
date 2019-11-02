@@ -11,31 +11,42 @@
 </head>
 <body>
 <%@include file="../header.jsp" %>
-<h2>Historia <c:if test="${vehicleName != null}">samochodu ${vehicleName}</c:if></h2>
-<hr>
 <main>
-    <table class="highlight centered">
-        <thead>
-        <tr>
-            <th>Data rozpoczęcia naprawy</th>
-            <th>Opis naprawy</th>
-            <th>Szczegóły</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="order" items="${orders}">
-            <tr>
-                <td>${order.startRepair}</td>
-                <td>${order.repairDescription}</td>
-                <td><a href="/orders/details?id=${order.id}" class="tooltipped" data-position="bottom"
-                       data-tooltip="szczegóły"><i class="material-icons">more</i></a>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <div class="row row-container">
+        <jsp:include page="../navbar.jsp"/>
+        <div class="col s12 l9">
+            <h5>Historia <c:if test="${vehicleName != null}">samochodu ${vehicleName}</c:if></h5>
+            <div class="card">
+                <div class="card-content">
+                    <div class="table-overflow">
+                        <table class="highlight centered">
+
+                            <thead>
+                            <tr>
+                                <th>Data rozpoczęcia naprawy</th>
+                                <th>Opis naprawy</th>
+                                <th>Szczegóły</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="order" items="${orders}">
+                                <tr>
+                                    <td>${order.startRepair}</td>
+                                    <td>${order.repairDescription}</td>
+                                    <td><a href="/orders/details?id=${order.id}" class="tooltipped"
+                                           data-position="bottom"
+                                           data-tooltip="szczegóły"><i class="material-icons">more</i></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
-<hr>
 <%@include file="../footer.jsp" %>
 <script type="text/javascript" src="<c:url value="../../js/jquery-3.4.1.slim.min.js"/>"></script>
 <script type="text/javascript" src="<c:url value="../../js/materialize.min.js"/>"></script>

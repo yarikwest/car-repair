@@ -11,58 +11,73 @@
 </head>
 <body>
 <%@include file="../header.jsp" %>
-<h2>Klienci</h2>
-<hr>
 <main>
-    <a href="/customers/add" class="btn-floating btn-large waves-effect waves-light red btn-add tooltipped"
-       data-position="bottom" data-tooltip="dodaj"><i
-            class="material-icons">add</i></a>
-    <table class="highlight centered">
-        <thead>
-        <tr>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Data urodzenia</th>
-            <th>Pojazdy</th>
-            <th>Zlecenia</th>
-            <th colspan="2">Więcej</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="customer" items="${customers}" varStatus="iter">
-            <tr>
-                <td>${customer.firstName}</td>
-                <td>${customer.lastName}</td>
-                <td>${customer.dateOfBirth}</td>
-                <td><a href="/vehicles?ownerId=${customer.id}&ownerName=${customer.firstName} ${customer.lastName}"
-                       class="tooltipped" data-position="bottom" data-tooltip="pojazdy"><i
-                        class="material-icons">directions_car</i></a></td>
-                <td><a href="/orders?customerId=${customer.id}&customerName=${customer.firstName} ${customer.lastName}"
-                       class="tooltipped" data-position="bottom"
-                       data-tooltip="zlecenia"><i class="material-icons">visibility</i></a></td>
-                <td><a href="/customers/edit?id=${customer.id}" class="tooltipped" data-position="bottom"
-                       data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>
-                <td>
-                    <!-- Modal Trigger -->
-                    <a class="modal-trigger tooltipped" href="#modal${iter.index}" data-position="bottom"
-                       data-tooltip="usuń"><i class="material-icons">delete</i></a>
-                    <!-- Modal Structure -->
-                    <div id="modal${iter.index}" class="modal">
-                        <div class="modal-content">
-                            <h4>Czy napewno chcesz usunąć klienta ${customer.firstName} ${customer.lastName}?</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="/customers/delete?id=${customer.id}"
-                               class="modal-close waves-effect waves-green btn-flat">Usuń</a>
-                        </div>
+    <div class="row row-container">
+        <jsp:include page="../navbar.jsp"/>
+        <div class="col s12 l9">
+            <h5>Klienci</h5>
+            <div class="card">
+                <div class="card-content">
+                    <a href="/customers/add"
+                       class="btn-floating btn waves-effect waves-light red btn-add tooltipped"
+                       data-position="bottom" data-tooltip="dodaj"><i
+                            class="material-icons">add</i></a>
+                    <div class="table-overflow">
+                        <table class="highlight centered responsive-table">
+                            <thead>
+                            <tr>
+                                <th>Imię</th>
+                                <th>Nazwisko</th>
+                                <th>Data urodzenia</th>
+                                <th>Pojazdy</th>
+                                <th>Zlecenia</th>
+                                <th colspan="2">Więcej</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="customer" items="${customers}" varStatus="iter">
+                                <tr>
+                                    <td>${customer.firstName}</td>
+                                    <td>${customer.lastName}</td>
+                                    <td>${customer.dateOfBirth}</td>
+                                    <td>
+                                        <a href="/vehicles?ownerId=${customer.id}&ownerName=${customer.firstName} ${customer.lastName}"
+                                           class="tooltipped" data-position="bottom" data-tooltip="pojazdy"><i
+                                                class="material-icons">directions_car</i></a></td>
+                                    <td>
+                                        <a href="/orders?customerId=${customer.id}&customerName=${customer.firstName} ${customer.lastName}"
+                                           class="tooltipped" data-position="bottom"
+                                           data-tooltip="zlecenia"><i class="material-icons">visibility</i></a></td>
+                                    <td><a href="/customers/edit?id=${customer.id}" class="tooltipped"
+                                           data-position="bottom"
+                                           data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>
+                                    <td>
+                                        <!-- Modal Trigger -->
+                                        <a class="modal-trigger tooltipped" href="#modal${iter.index}"
+                                           data-position="bottom"
+                                           data-tooltip="usuń"><i class="material-icons">delete</i></a>
+                                        <!-- Modal Structure -->
+                                        <div id="modal${iter.index}" class="modal">
+                                            <div class="modal-content">
+                                                <h4>Czy napewno chcesz usunąć
+                                                    klienta ${customer.firstName} ${customer.lastName}?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="/customers/delete?id=${customer.id}"
+                                                   class="modal-close waves-effect waves-green btn-flat">Usuń</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
-<hr>
 <%@include file="../footer.jsp" %>
 <script type="text/javascript" src="<c:url value="../../js/jquery-3.4.1.slim.min.js"/>"></script>
 <script type="text/javascript" src="<c:url value="../../js/materialize.min.js"/>"></script>

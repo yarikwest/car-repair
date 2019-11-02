@@ -26,12 +26,7 @@ public class EmployeeDao {
     public Employee create(Employee employee) {
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, employee.getFirstName());
-            preparedStatement.setString(2, employee.getLastName());
-            preparedStatement.setString(3, employee.getAddress());
-            preparedStatement.setString(4, employee.getTelephone());
-            preparedStatement.setString(5, employee.getNote());
-            preparedStatement.setDouble(6, employee.getCostOfWorkHour());
+            setPreparedStatement(employee, preparedStatement);
             LOGGER.info(preparedStatement);
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -53,15 +48,7 @@ public class EmployeeDao {
             LOGGER.info(preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Employee employee = new Employee();
-                employee.setId(resultSet.getInt("id"));
-                employee.setFirstName(resultSet.getString("first_name"));
-                employee.setLastName(resultSet.getString("last_name"));
-                employee.setAddress(resultSet.getString("address"));
-                employee.setTelephone(resultSet.getString("telephone"));
-                employee.setNote(resultSet.getString("note"));
-                employee.setCostOfWorkHour(resultSet.getDouble("cost_of_work_hour"));
-
+                Employee employee = createEmployee(resultSet);
                 resultSet.close();
                 return employee;
             }
@@ -75,12 +62,7 @@ public class EmployeeDao {
     public void update(Employee employee) {
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
-            preparedStatement.setString(1, employee.getFirstName());
-            preparedStatement.setString(2, employee.getLastName());
-            preparedStatement.setString(3, employee.getAddress());
-            preparedStatement.setString(4, employee.getTelephone());
-            preparedStatement.setString(5, employee.getNote());
-            preparedStatement.setDouble(6, employee.getCostOfWorkHour());
+            setPreparedStatement(employee, preparedStatement);
             preparedStatement.setInt(7, employee.getId());
             LOGGER.info(preparedStatement);
             preparedStatement.executeUpdate();
@@ -108,20 +90,36 @@ public class EmployeeDao {
              ResultSet resultSet = preparedStatement.executeQuery()) {
             LOGGER.info(preparedStatement);
             while (resultSet.next()) {
-                employees.add(new Employee(
-                        resultSet.getInt("id"),
-                        resultSet.getString("first_name"),
-                        resultSet.getString("last_name"),
-                        resultSet.getString("address"),
-                        resultSet.getString("telephone"),
-                        resultSet.getString("note"),
-                        resultSet.getDouble("cost_of_work_hour")
-                ));
+                employees.add(createEmployee(resultSet));
             }
+            resultSet.close();
             return employees;
         } catch (SQLException e) {
             LOGGER.error(e);
         }
         return employees;
+    }
+
+    private Employee createEmployee(ResultSet resultSet) throws SQLException {
+        Employee employee = new Employee(
+                resultSet.getString("first_name"),
+                resultSet.getString("last_name"),
+                resultSet.getString("address"),
+                resultSet.getString("telephone"),
+                resultSet.getString("note"),
+                resultSet.getBigDecimal("cost_of_work_hour")
+        );
+        employee.setId(resultSet.getInt("id"));
+
+        return employee;
+    }
+
+    private void setPreparedStatement(Employee employee, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, employee.getFirstName());
+        preparedStatement.setString(2, employee.getLastName());
+        preparedStatement.setString(3, employee.getAddress());
+        preparedStatement.setString(4, employee.getTelephone());
+        preparedStatement.setString(5, employee.getNote());
+        preparedStatement.setBigDecimal(6, employee.getCostOfWorkHour());
     }
 }

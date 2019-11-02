@@ -21,6 +21,8 @@ public class CustomerDao {
     private static final String DELETE_QUERY = "delete from customers where id = ?";
     private static final String FIND_ALL_QUERY = "select * from customers";
     private static final String FIND_ALL_BY_LAST_NAME_QUERY = "select * from customers where last_name like ?";
+    private static final String FIND_BY_ORDER_ID_QUERY = "select c.* from customers c left join vehicles v on" +
+            " c.id = v.owner_id left join orders o on v.id = o.vehicle_id where o.id = ?";
 
     public Customer create(Customer customer) {
         try (Connection connection = DbUtil.getConn();
@@ -133,5 +135,27 @@ public class CustomerDao {
         }
         LOGGER.info("Rows with %" + lastName + "% not exist");
         return customers;
+    }
+
+    public Customer findByOrderId(int orderId) {
+        try (Connection connection = DbUtil.getConn();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ORDER_ID_QUERY)) {
+            preparedStatement.setInt(1, orderId);
+            LOGGER.info(preparedStatement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Customer customer = new Customer();
+                customer.setId(resultSet.getInt("id"));
+                customer.setFirstName(resultSet.getString("first_name"));
+                customer.setLastName(resultSet.getString("last_name"));
+                customer.setDateOfBirth(resultSet.getDate("date_of_birth"));
+                resultSet.close();
+                return customer;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        LOGGER.info("Row with order_id:" + orderId + " not exist");
+        return null;
     }
 }

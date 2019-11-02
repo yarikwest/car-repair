@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @WebServlet("/employees/edit")
 public class EditServlet extends HttpServlet {
@@ -24,10 +25,9 @@ public class EditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String costOfWorkHourParam = req.getParameter("cost_of_work_hour");
-        double costOfWorkHour = costOfWorkHourParam.isEmpty() ? 0 : Double.parseDouble(costOfWorkHourParam);
+        BigDecimal costOfWorkHour = costOfWorkHourParam.isEmpty() ? null : new BigDecimal(costOfWorkHourParam);
 
         Employee employee = new Employee(
-                Integer.parseInt(req.getParameter("id")),
                 req.getParameter("first_name"),
                 req.getParameter("last_name"),
                 req.getParameter("address"),
@@ -35,6 +35,8 @@ public class EditServlet extends HttpServlet {
                 req.getParameter("note"),
                 costOfWorkHour
         );
+        employee.setId(Integer.parseInt(req.getParameter("id")));
+
         employeeDao.update(employee);
         resp.sendRedirect("/employees");
     }

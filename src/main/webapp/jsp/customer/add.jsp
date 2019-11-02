@@ -11,31 +11,40 @@
 </head>
 <body>
 <%@include file="../header.jsp" %>
-<h2>Dodaj klienta</h2>
-<hr>
 <main>
-    <form action="/customers/add" method="post" class="container">
-        <div class="input-field col s6">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="first_name" type="text" class="validate" name="first_name" required>
-            <label for="first_name">Imię</label>
+    <div class="row row-container">
+        <jsp:include page="../navbar.jsp"/>
+        <div class="col s12 l9">
+            <h5>Dodaj klienta</h5>
+            <div class="card">
+                <div class="card-content">
+                    <form action="/customers/add" method="post" class="container">
+                        <div class="input-field">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="first_name" type="text" class="validate" name="first_name" required>
+                            <label for="first_name">Imię</label>
+                        </div>
+                        <div class="input-field">
+                            <i class="material-icons prefix">account_box</i>
+                            <input id="last_name" type="text" class="validate" name="last_name" required>
+                            <label for="last_name">Nazwisko</label>
+                        </div>
+                        <div class="input-field">
+                            <i class="material-icons prefix">date_range</i>
+                            <input id="date_of_birth" type="text" class="datepicker" name="date_of_birth">
+                            <label for="date_of_birth">Data urodzenia</label>
+                        </div>
+                        <div class="input-field">
+                            <button class="btn waves-effect waves-light right" type="submit">
+                                Zapisz <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="input-field col s6">
-            <i class="material-icons prefix">account_box</i>
-            <input id="last_name" type="text" class="validate" name="last_name" required>
-            <label for="last_name">Nazwisko</label>
-        </div>
-        <div class="input-field col s6">
-            <i class="material-icons prefix">date_range</i>
-            <input id="date_of_birth" type="text" class="datepicker" name="date_of_birth">
-            <label for="date_of_birth">Data urodzenia</label>
-        </div>
-        <button class="btn waves-effect waves-light right" type="submit">
-            Zapisz <i class="material-icons right">send</i>
-        </button>
-    </form>
+    </div>
 </main>
-<hr>
 <%@include file="../footer.jsp" %>
 <script type="text/javascript" src="<c:url value="../../js/jquery-3.4.1.slim.min.js"/>"></script>
 <script type="text/javascript" src="<c:url value="../../js/materialize.min.js"/>"></script>

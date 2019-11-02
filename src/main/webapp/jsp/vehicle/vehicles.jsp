@@ -11,57 +11,70 @@
 </head>
 <body>
 <%@include file="../header.jsp" %>
-<h2>Pojazdy <c:if test="${ownerName != null}">klienta ${ownerName}</c:if></h2>
-<hr>
 <main>
-    <a href="/vehicles/add?ownerId=${ownerId}"
-       class="btn-floating btn-large waves-effect waves-light red btn-add tooltipped" data-position="bottom"
-       data-tooltip="dodaj"><i
-            class="material-icons">add</i></a>
-    <table class="highlight centered">
-        <thead>
-        <tr>
-            <th>Marka</th>
-            <th>Model</th>
-            <th>Rok produkcji</th>
-            <th>Nr.rejestracyjny</th>
-            <th>Następny przegląd</th>
-            <th>Historia napraw</th>
-            <th colspan="2">Więcej</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="vehicle" items="${vehicles}" varStatus="iter">
-            <tr>
-                <td>${vehicle.brand}</td>
-                <td>${vehicle.model}</td>
-                <td>${vehicle.yearOfProd}</td>
-                <td>${vehicle.registry}</td>
-                <td>${vehicle.nextInspection}</td>
-                <td><a href="/vehicles/history?id=${vehicle.id}&vehicleName=${vehicle.brand} ${vehicle.model}"
-                       class="tooltipped" data-position="bottom" data-tooltip="historia"><i
-                        class="material-icons">history</i></a></td>
-                <td><a href="/vehicles/edit?id=${vehicle.id}" class="tooltipped" data-position="bottom"
-                       data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>
-                <td>
-                    <!-- Modal Trigger -->
-                    <a class="modal-trigger tooltipped" href="#modal${iter.index}" data-position="bottom"
-                       data-tooltip="usuń"><i class="material-icons">delete</i></a>
-                    <!-- Modal Structure -->
-                    <div id="modal${iter.index}" class="modal">
-                        <div class="modal-content">
-                            <h4>Czy napewno chcesz usunąć samochód ${vehicle.brand} ${vehicle.model}?</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="/vehicles/delete?id=${vehicle.id}&ownerId=${ownerId}"
-                               class="modal-close waves-effect waves-green btn-flat">Usuń</a>
-                        </div>
+    <div class="row row-container">
+        <jsp:include page="../navbar.jsp"/>
+        <div class="col s12 l9">
+            <h5>Pojazdy <c:if test="${ownerName != null}">klienta ${ownerName}</c:if></h5>
+            <div class="card">
+                <div class="card-content">
+                    <a href="/vehicles/add?ownerId=${ownerId}"
+                       class="btn-floating btn waves-effect waves-light red btn-add tooltipped" data-position="bottom"
+                       data-tooltip="dodaj"><i
+                            class="material-icons">add</i></a>
+                    <div class="table-overflow">
+                        <table class="highlight centered responsive-table">
+                            <thead>
+                            <tr>
+                                <th>Marka</th>
+                                <th>Model</th>
+                                <th>Rok produkcji</th>
+                                <th>Nr.rejestracyjny</th>
+                                <th>Następny przegląd</th>
+                                <th>Historia napraw</th>
+                                <th colspan="2">Więcej</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="vehicle" items="${vehicles}" varStatus="iter">
+                                <tr>
+                                    <td>${vehicle.brand}</td>
+                                    <td>${vehicle.model}</td>
+                                    <td>${vehicle.yearOfProd}</td>
+                                    <td>${vehicle.registry}</td>
+                                    <td>${vehicle.nextInspection}</td>
+                                    <td>
+                                        <a href="/vehicles/history?id=${vehicle.id}&vehicleName=${vehicle.brand} ${vehicle.model}"
+                                           class="tooltipped" data-position="bottom" data-tooltip="historia"><i
+                                                class="material-icons">history</i></a></td>
+                                    <td><a href="/vehicles/edit?id=${vehicle.id}" class="tooltipped"
+                                           data-position="bottom"
+                                           data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>
+                                    <td>
+                                        <!-- Modal Trigger -->
+                                        <a class="modal-trigger tooltipped" href="#modal${iter.index}"
+                                           data-position="bottom"
+                                           data-tooltip="usuń"><i class="material-icons">delete</i></a>
+                                        <!-- Modal Structure -->
+                                        <div id="modal${iter.index}" class="modal">
+                                            <div class="modal-content">
+                                                <h4>Czy napewno chcesz usunąć samochód ${vehicle.brand} ${vehicle.model}?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="/vehicles/delete?id=${vehicle.id}&ownerId=${ownerId}"
+                                                   class="modal-close waves-effect waves-green btn-flat">Usuń</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <hr>
 <%@include file="../footer.jsp" %>

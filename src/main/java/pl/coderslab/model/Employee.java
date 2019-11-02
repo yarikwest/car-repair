@@ -1,5 +1,7 @@
 package pl.coderslab.model;
 
+import java.math.BigDecimal;
+
 public class Employee {
     private int id;
     private String firstName;
@@ -7,22 +9,12 @@ public class Employee {
     private String address;
     private String telephone;
     private String note;
-    private double costOfWorkHour;
+    private BigDecimal costOfWorkHour;
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String address, String telephone, String note, double costOfWorkHour) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.telephone = telephone;
-        this.note = note;
-        this.costOfWorkHour = costOfWorkHour;
-    }
-
-    public Employee(int id, String firstName, String lastName, String address, String telephone, String note, double costOfWorkHour) {
-        this.id = id;
+    public Employee(String firstName, String lastName, String address, String telephone, String note, BigDecimal costOfWorkHour) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -79,11 +71,11 @@ public class Employee {
         this.note = note;
     }
 
-    public double getCostOfWorkHour() {
+    public BigDecimal getCostOfWorkHour() {
         return costOfWorkHour;
     }
 
-    public void setCostOfWorkHour(double costOfWorkHour) {
+    public void setCostOfWorkHour(BigDecimal costOfWorkHour) {
         this.costOfWorkHour = costOfWorkHour;
     }
 }
