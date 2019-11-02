@@ -1,5 +1,6 @@
 package pl.coderslab.model;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class Order {
@@ -13,36 +14,17 @@ public class Order {
     private String repairDescription;
     private Status status;
     private Vehicle vehicle;
-    private double costOfRepair;
-    private double costOfParts;
-    private double costOfWorkHour;
-    private double numberWorkHour;
+    private BigDecimal costOfRepair;
+    private BigDecimal costOfParts;
+    private BigDecimal costOfWorkHour;
+    private BigDecimal numberWorkHour;
 
     public Order() {
     }
 
     public Order(Date acceptRepair, Date planStartRepair, Date startRepair, Date endRepair, Employee employee
-            , String problemDescription, String repairDescription, Status status, Vehicle vehicle, double costOfRepair
-            , double costOfParts, double costOfWorkHour, double numberWorkHour) {
-        this.acceptRepair = acceptRepair;
-        this.planStartRepair = planStartRepair;
-        this.startRepair = startRepair;
-        this.endRepair = endRepair;
-        this.employee = employee;
-        this.problemDescription = problemDescription;
-        this.repairDescription = repairDescription;
-        this.status = status;
-        this.vehicle = vehicle;
-        this.costOfRepair = costOfRepair;
-        this.costOfParts = costOfParts;
-        this.costOfWorkHour = costOfWorkHour;
-        this.numberWorkHour = numberWorkHour;
-    }
-
-    public Order(int id, Date acceptRepair, Date planStartRepair, Date startRepair, Date endRepair, Employee employee
-            , String problemDescription, String repairDescription, Status status, Vehicle vehicle, double costOfRepair
-            , double costOfParts, double costOfWorkHour, double numberWorkHour) {
-        this.id = id;
+            , String problemDescription, String repairDescription, Status status, Vehicle vehicle, BigDecimal costOfRepair
+            , BigDecimal costOfParts, BigDecimal costOfWorkHour, BigDecimal numberWorkHour) {
         this.acceptRepair = acceptRepair;
         this.planStartRepair = planStartRepair;
         this.startRepair = startRepair;
@@ -138,35 +120,35 @@ public class Order {
         this.vehicle = vehicle;
     }
 
-    public double getCostOfRepair() {
+    public BigDecimal getCostOfRepair() {
         return costOfRepair;
     }
 
-    public void setCostOfRepair(double costOfRepair) {
+    public void setCostOfRepair(BigDecimal costOfRepair) {
         this.costOfRepair = costOfRepair;
     }
 
-    public double getCostOfParts() {
+    public BigDecimal getCostOfParts() {
         return costOfParts;
     }
 
-    public void setCostOfParts(double costOfParts) {
+    public void setCostOfParts(BigDecimal costOfParts) {
         this.costOfParts = costOfParts;
     }
 
-    public double getCostOfWorkHour() {
+    public BigDecimal getCostOfWorkHour() {
         return costOfWorkHour;
     }
 
-    public void setCostOfWorkHour(double costOfWorkHour) {
+    public void setCostOfWorkHour(BigDecimal costOfWorkHour) {
         this.costOfWorkHour = costOfWorkHour;
     }
 
-    public double getNumberWorkHour() {
+    public BigDecimal getNumberWorkHour() {
         return numberWorkHour;
     }
 
-    public void setNumberWorkHour(double numberWorkHour) {
+    public void setNumberWorkHour(BigDecimal numberWorkHour) {
         this.numberWorkHour = numberWorkHour;
     }
 }

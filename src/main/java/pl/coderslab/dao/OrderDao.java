@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import pl.coderslab.model.Order;
 import pl.coderslab.utils.DbUtil;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,19 +45,7 @@ public class OrderDao {
     public Order create(Order order) {
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setDate(1, order.getAcceptRepair());
-            preparedStatement.setDate(2, order.getPlanStartRepair());
-            preparedStatement.setDate(3, order.getStartRepair());
-            preparedStatement.setDate(4, order.getEndRepair());
-            preparedStatement.setInt(5, order.getEmployee().getId());
-            preparedStatement.setString(6, order.getProblemDescription());
-            preparedStatement.setString(7, order.getRepairDescription());
-            preparedStatement.setInt(8, order.getStatus().getId());
-            preparedStatement.setInt(9, order.getVehicle().getId());
-            preparedStatement.setDouble(10, order.getCostOfRepair());
-            preparedStatement.setDouble(11, order.getCostOfParts());
-            preparedStatement.setDouble(12, order.getCostOfWorkHour());
-            preparedStatement.setDouble(13, order.getNumberWorkHour());
+            setPreparedStatement(order, preparedStatement);
             LOGGER.info(preparedStatement);
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -92,19 +81,7 @@ public class OrderDao {
     public void update(Order order) {
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
-            preparedStatement.setDate(1, order.getAcceptRepair());
-            preparedStatement.setDate(2, order.getPlanStartRepair());
-            preparedStatement.setDate(3, order.getStartRepair());
-            preparedStatement.setDate(4, order.getEndRepair());
-            preparedStatement.setInt(5, order.getEmployee().getId());
-            preparedStatement.setString(6, order.getProblemDescription());
-            preparedStatement.setString(7, order.getRepairDescription());
-            preparedStatement.setInt(8, order.getStatus().getId());
-            preparedStatement.setInt(9, order.getVehicle().getId());
-            preparedStatement.setDouble(10, order.getCostOfRepair());
-            preparedStatement.setDouble(11, order.getCostOfParts());
-            preparedStatement.setDouble(12, order.getCostOfWorkHour());
-            preparedStatement.setDouble(13, order.getNumberWorkHour());
+            setPreparedStatement(order, preparedStatement);
             preparedStatement.setInt(14, order.getId());
             LOGGER.info(preparedStatement);
             preparedStatement.executeUpdate();
@@ -179,7 +156,7 @@ public class OrderDao {
         }
     }
 
-    public Double calcProfit(Date startDate, Date endDate) {
+    public BigDecimal calcProfit(Date startDate, Date endDate) {
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(CALC_PROFIT_QUERY)) {
             preparedStatement.setDate(1, startDate);
@@ -187,7 +164,7 @@ public class OrderDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             LOGGER.info(preparedStatement);
             if (resultSet.next()) {
-                double profit = resultSet.getDouble("profit");
+                BigDecimal profit = resultSet.getBigDecimal("profit");
                 resultSet.close();
                 return profit;
             }
@@ -216,10 +193,25 @@ public class OrderDao {
         return orders;
     }
 
+    private void setPreparedStatement(Order order, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setDate(1, order.getAcceptRepair());
+        preparedStatement.setDate(2, order.getPlanStartRepair());
+        preparedStatement.setDate(3, order.getStartRepair());
+        preparedStatement.setDate(4, order.getEndRepair());
+        preparedStatement.setInt(5, order.getEmployee().getId());
+        preparedStatement.setString(6, order.getProblemDescription());
+        preparedStatement.setString(7, order.getRepairDescription());
+        preparedStatement.setInt(8, order.getStatus().getId());
+        preparedStatement.setInt(9, order.getVehicle().getId());
+        preparedStatement.setBigDecimal(10, order.getCostOfRepair());
+        preparedStatement.setBigDecimal(11, order.getCostOfParts());
+        preparedStatement.setBigDecimal(12, order.getCostOfWorkHour());
+        preparedStatement.setBigDecimal(13, order.getNumberWorkHour());
+    }
+
     //Method for creating new Order with his all instance variables
     private Order createOrder(ResultSet resultSet) throws SQLException {
-        return new Order(
-                resultSet.getInt("id"),
+        Order order = new Order(
                 resultSet.getDate("accept_repair"),
                 resultSet.getDate("plan_start_repair"),
                 resultSet.getDate("start_repair"),
@@ -229,10 +221,13 @@ public class OrderDao {
                 resultSet.getString("repair_description"),
                 statusDao.read(resultSet.getInt("status_id")),
                 vehicleDao.read(resultSet.getInt("vehicle_id")),
-                resultSet.getDouble("cost_of_repair"),
-                resultSet.getDouble("cost_of_parts"),
-                resultSet.getDouble("cost_of_work_hour"),
-                resultSet.getDouble("number_work_hour")
+                resultSet.getBigDecimal("cost_of_repair"),
+                resultSet.getBigDecimal("cost_of_parts"),
+                resultSet.getBigDecimal("cost_of_work_hour"),
+                resultSet.getBigDecimal("number_work_hour")
         );
+        order.setId(resultSet.getInt("id"));
+
+        return order;
     }
 }
