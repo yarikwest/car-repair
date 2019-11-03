@@ -18,7 +18,7 @@
             <h5>Klienci</h5>
             <div class="card">
                 <div class="card-content">
-                    <a href="/customers/add"
+                    <a href="/app/customers/add"
                        class="btn-floating btn waves-effect waves-light red btn-add tooltipped"
                        data-position="bottom" data-tooltip="dodaj"><i
                             class="material-icons">add</i></a>
@@ -41,14 +41,14 @@
                                     <td>${customer.lastName}</td>
                                     <td>${customer.dateOfBirth}</td>
                                     <td>
-                                        <a href="/vehicles?ownerId=${customer.id}&ownerName=${customer.firstName} ${customer.lastName}"
+                                        <a href="/app/vehicles?ownerId=${customer.id}&ownerName=${customer.firstName} ${customer.lastName}"
                                            class="tooltipped" data-position="bottom" data-tooltip="pojazdy"><i
                                                 class="material-icons">directions_car</i></a></td>
                                     <td>
-                                        <a href="/orders?customerId=${customer.id}&customerName=${customer.firstName} ${customer.lastName}"
+                                        <a href="/app/orders?customerId=${customer.id}&customerName=${customer.firstName} ${customer.lastName}"
                                            class="tooltipped" data-position="bottom"
                                            data-tooltip="zlecenia"><i class="material-icons">visibility</i></a></td>
-                                    <td><a href="/customers/edit?id=${customer.id}" class="tooltipped"
+                                    <td><a href="/app/customers/edit?id=${customer.id}" class="tooltipped"
                                            data-position="bottom"
                                            data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>
                                     <td>
@@ -63,7 +63,7 @@
                                                     klienta ${customer.firstName} ${customer.lastName}?</h4>
                                             </div>
                                             <div class="modal-footer">
-                                                <a href="/customers/delete?id=${customer.id}"
+                                                <a href="/app/customers/delete?id=${customer.id}"
                                                    class="modal-close waves-effect waves-green btn-flat">Usuń</a>
                                             </div>
                                         </div>

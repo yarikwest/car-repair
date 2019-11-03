@@ -18,7 +18,7 @@
             <h5>Dodaj klienta</h5>
             <div class="card">
                 <div class="card-content">
-                    <form action="/customers/add" method="post" class="container">
+                    <form action="/app/customers/add" method="post" class="container">
                         <div class="input-field">
                             <i class="material-icons prefix">account_circle</i>
                             <input id="first_name" type="text" class="validate" name="first_name" required>

@@ -18,7 +18,7 @@
             <h5>Pojazdy <c:if test="${ownerName != null}">klienta ${ownerName}</c:if></h5>
             <div class="card">
                 <div class="card-content">
-                    <a href="/vehicles/add?ownerId=${ownerId}"
+                    <a href="/app/vehicles/add?ownerId=${ownerId}"
                        class="btn-floating btn waves-effect waves-light red btn-add tooltipped" data-position="bottom"
                        data-tooltip="dodaj"><i
                             class="material-icons">add</i></a>
@@ -44,10 +44,10 @@
                                     <td>${vehicle.registry}</td>
                                     <td>${vehicle.nextInspection}</td>
                                     <td>
-                                        <a href="/vehicles/history?id=${vehicle.id}&vehicleName=${vehicle.brand} ${vehicle.model}"
+                                        <a href="/app/vehicles/history?id=${vehicle.id}&vehicleName=${vehicle.brand} ${vehicle.model}"
                                            class="tooltipped" data-position="bottom" data-tooltip="historia"><i
                                                 class="material-icons">history</i></a></td>
-                                    <td><a href="/vehicles/edit?id=${vehicle.id}" class="tooltipped"
+                                    <td><a href="/app/vehicles/edit?id=${vehicle.id}" class="tooltipped"
                                            data-position="bottom"
                                            data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>
                                     <td>
@@ -61,7 +61,7 @@
                                                 <h4>Czy napewno chcesz usunąć samochód ${vehicle.brand} ${vehicle.model}?</h4>
                                             </div>
                                             <div class="modal-footer">
-                                                <a href="/vehicles/delete?id=${vehicle.id}&ownerId=${ownerId}"
+                                                <a href="/app/vehicles/delete?id=${vehicle.id}&ownerId=${ownerId}"
                                                    class="modal-close waves-effect waves-green btn-flat">Usuń</a>
                                             </div>
                                         </div>

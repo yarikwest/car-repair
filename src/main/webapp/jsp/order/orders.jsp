@@ -21,7 +21,8 @@
             <div class="card">
                 <div class="card-content">
                     <c:if test="${employeeName == null && customerName == null}">
-                        <a href="/orders/add" class="btn-floating btn waves-effect waves-light red btn-add tooltipped"
+                        <a href="/app/orders/add"
+                           class="btn-floating btn waves-effect waves-light red btn-add tooltipped"
                            data-position="bottom" data-tooltip="dodaj"><i
                                 class="material-icons">add</i></a>
                     </c:if>
@@ -51,14 +52,14 @@
                                     <td>${order.problemDescription}</td>
                                     <td>${order.vehicle.registry} ${order.vehicle.brand}</td>
                                     <td>${order.status.title}</td>
-                                    <td><a href="/orders/details?id=${order.id}" class="tooltipped"
+                                    <td><a href="/app/orders/details?id=${order.id}" class="tooltipped"
                                            data-position="bottom"
                                            data-tooltip="szczegóły"><i class="material-icons">more</i></a>
                                     </td>
                                     <c:if test="${employeeName == null}">
                                         <td>${order.employee.firstName} ${order.employee.lastName}</td>
                                         <c:if test="${customerName == null}">
-                                            <td><a href="/orders/edit?id=${order.id}" class="tooltipped"
+                                            <td><a href="/app/orders/edit?id=${order.id}" class="tooltipped"
                                                    data-position="bottom"
                                                    data-tooltip="edytuj"><i class="material-icons">edit</i></a>
                                             </td>
@@ -73,7 +74,7 @@
                                                         <h4>Czy napewno chcesz usunąć zlecenie?</h4>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="/orders/delete?id=${order.id}"
+                                                        <a href="/app/orders/delete?id=${order.id}"
                                                            class="modal-close waves-effect waves-green btn-flat">Usuń</a>
                                                     </div>
                                                 </div>

@@ -18,8 +18,7 @@
             <h5>Edytuj zlecenie</h5>
             <div class="card">
                 <div class="card-content">
-                    <form action="/orders/edit" method="post" class="container">
-
+                    <form action="/app/orders/edit" method="post" class="container">
                         <div class="row">
                             <div class="input-field col m12 l6">
                                 <i class="material-icons prefix">date_range</i>

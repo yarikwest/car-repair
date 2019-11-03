@@ -17,10 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.List;
 import java.util.Map;
 
-@WebServlet("/orders/add")
+@WebServlet("/app/orders/add")
 public class AddServlet extends HttpServlet {
     private EmployeeDao employeeDao = new EmployeeDao();
     private StatusDao statusDao = new StatusDao();
@@ -44,11 +43,11 @@ public class AddServlet extends HttpServlet {
         Date planStartRepair = strings.get("plan_start_repair")[0].isEmpty() ? null : Date.valueOf(strings.get("plan_start_repair")[0]);
         Date startRepair = strings.get("start_repair")[0].isEmpty() ? null : Date.valueOf(strings.get("start_repair")[0]);
         Date endRepair = strings.get("end_repair")[0].isEmpty() ? null : Date.valueOf(strings.get("end_repair")[0]);
-        Employee employee = strings.get("employee")[0].isEmpty() ? null : employeeDao.read(Integer.parseInt(strings.get("employee")[0]));
+        Employee employee = strings.get("employee")[0].isEmpty() ? new Employee() : employeeDao.read(Integer.parseInt(strings.get("employee")[0]));
         String problemDescription = strings.get("problem_description")[0];
         String repairDescription = strings.get("repair_description")[0];
-        Status status = strings.get("status")[0].isEmpty() ? null : statusDao.read(Integer.parseInt(strings.get("status")[0]));
-        Vehicle vehicle = strings.get("vehicle")[0].isEmpty() ? null : vehicleDao.read(Integer.parseInt(strings.get("vehicle")[0]));
+        Status status = strings.get("status")[0].isEmpty() ? new Status() : statusDao.read(Integer.parseInt(strings.get("status")[0]));
+        Vehicle vehicle = strings.get("vehicle")[0].isEmpty() ? new Vehicle() : vehicleDao.read(Integer.parseInt(strings.get("vehicle")[0]));
         BigDecimal costOfRepair = strings.get("cost_of_repair")[0].isEmpty() ? null : new BigDecimal(strings.get("cost_of_repair")[0]);
         BigDecimal costOfParts = strings.get("cost_of_parts")[0].isEmpty() ? null : new BigDecimal(strings.get("cost_of_parts")[0]);
         BigDecimal costOfWorkHour = strings.get("cost_of_work_hour")[0].isEmpty() ? null : new BigDecimal(strings.get("cost_of_work_hour")[0]);
@@ -57,6 +56,6 @@ public class AddServlet extends HttpServlet {
         orderDao.create(new Order(acceptRepair, planStartRepair, startRepair, endRepair, employee, problemDescription,
                 repairDescription, status, vehicle, costOfRepair, costOfParts, costOfWorkHour, numberWorkHour));
 
-        resp.sendRedirect("/orders");
+        resp.sendRedirect("/app/orders");
     }
 }

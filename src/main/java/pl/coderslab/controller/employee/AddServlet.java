@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-@WebServlet("/employees/add")
+@WebServlet("/app/employees/add")
 public class AddServlet extends HttpServlet {
     private EmployeeDao employeeDao = new EmployeeDao();
 
@@ -35,6 +35,6 @@ public class AddServlet extends HttpServlet {
                 costOfWorkHour
         );
         employeeDao.create(employee);
-        resp.sendRedirect("/employees");
+        resp.sendRedirect("/app/employees");
     }
 }

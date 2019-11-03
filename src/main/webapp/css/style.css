@@ -83,5 +83,26 @@ form.container {
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
     color: #26a69a;
 }
+/* styles for login form */
+.card-login{
+    margin-top:15%;
+}
+.card-title-login h6{
+    margin:0 !important;
+    padding-bottom:8px !important;
+    padding-top:8px !important;
+}
 
+.container-fluid{
+    margin:0 auto;
+    width:90%;
+}
+
+.main-login{
+    width: 100%;
+    min-height: 90vh;
+    background:linear-gradient(180deg,#00838F,#00BCD4);
+    background-size: cover;
+}
+/* login end */
 

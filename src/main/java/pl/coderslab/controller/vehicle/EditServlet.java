@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 
-@WebServlet("/vehicles/edit")
+@WebServlet("/app/vehicles/edit")
 public class EditServlet extends HttpServlet {
     VehicleDao vehicleDao = new VehicleDao();
 
@@ -39,6 +39,6 @@ public class EditServlet extends HttpServlet {
         );
         vehicleDao.update(vehicle);
 
-        resp.sendRedirect("/vehicles?ownerId=" + req.getParameter("owner_id"));
+        resp.sendRedirect("/app/vehicles?ownerId=" + req.getParameter("owner_id"));
     }
 }

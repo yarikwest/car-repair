@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/vehicles")
+@WebServlet("/app/vehicles")
 public class VehiclesServlet extends HttpServlet {
     VehicleDao vehicleDao = new VehicleDao();
 

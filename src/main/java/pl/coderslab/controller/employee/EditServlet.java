@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-@WebServlet("/employees/edit")
+@WebServlet("/app/employees/edit")
 public class EditServlet extends HttpServlet {
     private EmployeeDao employeeDao = new EmployeeDao();
 
@@ -38,6 +38,6 @@ public class EditServlet extends HttpServlet {
         employee.setId(Integer.parseInt(req.getParameter("id")));
 
         employeeDao.update(employee);
-        resp.sendRedirect("/employees");
+        resp.sendRedirect("/app/employees");
     }
 }

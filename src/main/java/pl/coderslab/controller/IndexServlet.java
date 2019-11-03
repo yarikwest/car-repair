@@ -1,8 +1,6 @@
 package pl.coderslab.controller;
 
-import pl.coderslab.dao.EmployeeDao;
 import pl.coderslab.dao.OrderDao;
-import pl.coderslab.dao.VehicleDao;
 import pl.coderslab.model.Order;
 
 import javax.servlet.ServletException;
@@ -13,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("")
+@WebServlet("/app")
 public class IndexServlet extends HttpServlet {
     private OrderDao orderDao = new OrderDao();
 

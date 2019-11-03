@@ -28,6 +28,7 @@
                                 <th>Opis problemu</th>
                                 <th>Pojazd którego dotyczy naprawa</th>
                                 <th>Status</th>
+                                <th>Szczegóły</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -39,6 +40,10 @@
                                     <td>${order.problemDescription}</td>
                                     <td>${order.vehicle.registry} ${order.vehicle.model}</td>
                                     <td>${order.status.title}</td>
+                                    <td><a href="/app/orders/details?id=${order.id}" class="tooltipped"
+                                           data-position="bottom"
+                                           data-tooltip="szczegóły"><i class="material-icons">more</i></a>
+                                    </td>
                                 </tr>
                             </c:forEach>
                             </tbody>

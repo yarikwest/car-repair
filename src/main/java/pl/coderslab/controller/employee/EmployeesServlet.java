@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/employees")
+@WebServlet("/app/employees")
 public class EmployeesServlet extends HttpServlet {
     private EmployeeDao employeeDao = new EmployeeDao();
 
@@ -18,10 +18,5 @@ public class EmployeesServlet extends HttpServlet {
         req.setAttribute("employees", employeeDao.findAll());
         getServletContext().getRequestDispatcher("/jsp/employee/employees.jsp")
                 .forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
     }
 }

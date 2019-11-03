@@ -7,10 +7,8 @@ import pl.coderslab.utils.DbUtil;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Date;
+import java.util.*;
 
 public class OrderDao {
     private StatusDao statusDao = new StatusDao();
@@ -28,7 +26,7 @@ public class OrderDao {
             ", status_id = ?, vehicle_id = ?, cost_of_repair = ?, cost_of_parts = ?, cost_of_work_hour = ?" +
             ", number_work_hour = ? where id = ?";
     private static final String DELETE_QUERY = "delete from orders where id = ?";
-    private static final String FIND_ALL_QUERY = "select * from orders";
+    private static final String FIND_ALL_QUERY = "select * from orders order by accept_repair desc";
     private static final String FIND_ALL_BY_VEHICLE_ID_QUERY = "select * from orders where vehicle_id = ?";
     private static final String FIND_ALL_BY_STATUS_ID_QUERY = "select * from orders where status_id = ?";
     private static final String FIND_ALL_BY_EMPLOYEE_ID_AND_STATUS_QUERY = "select * from orders where " +
@@ -38,9 +36,9 @@ public class OrderDao {
     private static final String CALC_WORK_HOUR_QUERY = "select concat(e.first_name, ' ', e.last_name) as name" +
             ", SUM(o.number_work_hour) as sum_work_hour from orders o join employees e on o.employee_id = e.id" +
             " where o.start_repair between cast(? as date) and cast(? as date) group by o.employee_id";
-    private static final String CALC_PROFIT_QUERY = "select sum(cost_of_repair - (cost_of_parts +" +
-            " (cost_of_work_hour * number_work_hour))) as profit from orders where end_repair between cast(? as date)" +
-            " and cast(? as date)";
+    private static final String CALC_PROFIT_QUERY = "select end_repair, sum(cost_of_repair - (cost_of_parts +" +
+            " (cost_of_work_hour * number_work_hour))) as profit from orders where end_repair between" +
+            " cast(? as date) and cast(? as date) group by end_repair order by end_repair asc";
 
     public Order create(Order order) {
         try (Connection connection = DbUtil.getConn();
@@ -134,8 +132,8 @@ public class OrderDao {
         return getOrders(customerId, FIND_ALL_BY_CUSTOMER_ID_QUERY);
     }
 
-    public Map<String, Double> calcWorkHour(Date startDate, Date endDate) {
-        Map<String, Double> map = new HashMap<>();
+    public Map<String, BigDecimal> calcWorkHour(Date startDate, Date endDate) {
+        Map<String, BigDecimal> map = new HashMap<>();
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(CALC_WORK_HOUR_QUERY)) {
             preparedStatement.setDate(1, startDate);
@@ -145,7 +143,7 @@ public class OrderDao {
             while (resultSet.next()) {
                 map.put(
                         resultSet.getString("name"),
-                        resultSet.getDouble("sum_work_hour")
+                        resultSet.getBigDecimal("sum_work_hour")
                 );
             }
             resultSet.close();
@@ -156,22 +154,26 @@ public class OrderDao {
         }
     }
 
-    public BigDecimal calcProfit(Date startDate, Date endDate) {
+    public Map<Date, BigDecimal> calcProfit(Date startDate, Date endDate) {
+        Map<Date, BigDecimal> map = new LinkedHashMap<>();
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(CALC_PROFIT_QUERY)) {
             preparedStatement.setDate(1, startDate);
             preparedStatement.setDate(2, endDate);
             ResultSet resultSet = preparedStatement.executeQuery();
             LOGGER.info(preparedStatement);
-            if (resultSet.next()) {
-                BigDecimal profit = resultSet.getBigDecimal("profit");
-                resultSet.close();
-                return profit;
+            while (resultSet.next()) {
+                map.put(
+                        resultSet.getDate("end_repair"),
+                        resultSet.getBigDecimal("profit")
+                );
             }
+            resultSet.close();
+            return map;
         } catch (SQLException e) {
             LOGGER.error(e);
         }
-        return null;
+        return map;
     }
 
     private List<Order> getOrders(int id, String query) {

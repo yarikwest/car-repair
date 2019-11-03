@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/vehicles/delete")
+@WebServlet("/app/vehicles/delete")
 public class DeleteServlet extends HttpServlet {
     VehicleDao vehicleDao = new VehicleDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         vehicleDao.delete(Integer.parseInt(req.getParameter("id")));
-        resp.sendRedirect("/vehicles?ownerId=" + req.getParameter("ownerId"));
+        resp.sendRedirect("/app/vehicles?ownerId=" + req.getParameter("ownerId"));
     }
 }

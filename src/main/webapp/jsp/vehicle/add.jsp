@@ -18,8 +18,7 @@
             <h5>Dodaj pojazd</h5>
             <div class="card">
                 <div class="card-content">
-                    <form action="/vehicles/add" method="post" class="container">
-
+                    <form action="/app/vehicles/add" method="post" class="container">
                         <div class="input-field">
                             <input id="brand" type="text" class="validate" name="brand">
                             <label for="brand">Marka</label>

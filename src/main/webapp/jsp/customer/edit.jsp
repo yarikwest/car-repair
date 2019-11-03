@@ -18,7 +18,7 @@
             <h5>Edytuj klienta</h5>
             <div class="card">
                 <div class="card-content">
-                    <form action="/customers/edit" method="post" class="container">
+                    <form action="/app/customers/edit" method="post" class="container">
                         <div class="input-field">
                             <i class="material-icons prefix">account_circle</i>
                             <input id="first_name" type="text" class="validate" name="first_name"

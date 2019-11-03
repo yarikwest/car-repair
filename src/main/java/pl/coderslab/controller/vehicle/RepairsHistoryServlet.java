@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/vehicles/history")
+@WebServlet("/app/vehicles/history")
 public class RepairsHistoryServlet extends HttpServlet {
     OrderDao orderDao = new OrderDao();
 

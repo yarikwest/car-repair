@@ -18,7 +18,7 @@
             <h5>Edytuj pojazd</h5>
             <div class="card">
                 <div class="card-content">
-                    <form action="/vehicles/edit" method="post" class="container">
+                    <form action="/app/vehicles/edit" method="post" class="container">
                         <div class="input-field">
                             <input id="brand" type="text" class="validate" name="brand" value="${vehicle.brand}">
                             <label for="brand">Marka</label>

@@ -13,7 +13,7 @@
 <%@include file="../header.jsp" %>
 <main>
     <div class="row row-container">
-        <jsp:include page="/jsp/navbar.jsp"/>
+        <jsp:include page="../navbar.jsp"/>
         <div class="col s12 l9">
             <h5>Szczegóły zlecenia</h5>
             <div class="card">
@@ -174,7 +174,7 @@
                     <div class="card-action">
                         <div class="row row-margin0">
                             <div class="col offset-s11">
-                                <a href="/orders/edit?id=${order.id}" class="tooltipped" data-position="bottom"
+                                <a href="/app/orders/edit?id=${order.id}" class="tooltipped" data-position="bottom"
                                    data-tooltip="edytuj"><i class="material-icons">edit</i></a>
                             </div>
                         </div>
@@ -183,7 +183,6 @@
             </div>
         </div>
     </div>
-
 </main>
 <%@include file="../footer.jsp" %>
 <script type="text/javascript" src="<c:url value="../../js/jquery-3.4.1.slim.min.js"/>"></script>

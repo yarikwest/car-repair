@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 
-@WebServlet("/customers/add")
+@WebServlet("/app/customers/add")
 public class AddServlet extends HttpServlet {
     CustomerDao customerDao = new CustomerDao();
 
@@ -32,6 +32,6 @@ public class AddServlet extends HttpServlet {
         );
         customerDao.create(customer);
 
-        resp.sendRedirect("/customers");
+        resp.sendRedirect("/app/customers");
     }
 }

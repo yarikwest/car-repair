@@ -18,7 +18,7 @@
             <h5>Dodaj zlecenie</h5>
             <div class="card">
                 <div class="card-content">
-                    <form action="/orders/add" method="post" class="container">
+                    <form action="/app/orders/add" method="post" class="container">
                         <div class="row">
                             <div class="input-field col m12 l6">
                                 <i class="material-icons prefix">date_range</i>
@@ -39,7 +39,6 @@
                             <div class="input-field col m12 l6">
                                 <i class="material-icons prefix">assignment_turned_in</i>
                                 <select name="status">
-                                    <option value="" selected>Wybierz status</option>
                                     <c:forEach var="status" items="${statuses}">
                                         <option value="${status.id}">${status.title}</option>
                                     </c:forEach>
@@ -56,7 +55,6 @@
                             <div class="input-field col m12 l6">
                                 <i class="material-icons prefix">person</i>
                                 <select id="employee" name="employee">
-                                    <option value="" selected>Wybierz pracownika</option>
                                     <c:forEach var="employee" items="${employees}">
                                         <option value="${employee.id}"
                                                 data-cost-of-work-hour="${employee.costOfWorkHour}">${employee.firstName} ${employee.lastName}</option>
@@ -75,7 +73,6 @@
                             <div class="input-field col m12 l6">
                                 <i class="material-icons prefix">directions_car</i>
                                 <select name="vehicle">
-                                    <option value="" selected>Wybierz samochód</option>
                                     <c:forEach var="vehicle" items="${vehicles}">
                                         <option value="${vehicle.id}">${vehicle.model} ${vehicle.registry}</option>
                                     </c:forEach>

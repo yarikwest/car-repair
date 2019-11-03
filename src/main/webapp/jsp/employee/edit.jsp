@@ -18,7 +18,7 @@
             <h5>Edytuj pracownika</h5>
             <div class="card">
                 <div class="card-content">
-                    <form action="/employees/edit" method="post" class="container">
+                    <form action="/app/employees/edit" method="post" class="container">
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">account_circle</i>

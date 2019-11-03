@@ -60,3 +60,12 @@ create table orders
     foreign key (status_id) references statuses (id) on delete cascade,
     foreign key (vehicle_id) references vehicles (id) on delete cascade
 );
+
+create table users
+(
+    id       int auto_increment,
+    login    varchar(50)  not null unique,
+    password varchar(255) not null,
+    is_admin tinyint(1)   not null,
+    primary key (id)
+);

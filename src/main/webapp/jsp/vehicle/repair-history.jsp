@@ -20,7 +20,6 @@
                 <div class="card-content">
                     <div class="table-overflow">
                         <table class="highlight centered">
-
                             <thead>
                             <tr>
                                 <th>Data rozpoczęcia naprawy</th>
@@ -33,7 +32,7 @@
                                 <tr>
                                     <td>${order.startRepair}</td>
                                     <td>${order.repairDescription}</td>
-                                    <td><a href="/orders/details?id=${order.id}" class="tooltipped"
+                                    <td><a href="/app/orders/details?id=${order.id}" class="tooltipped"
                                            data-position="bottom"
                                            data-tooltip="szczegóły"><i class="material-icons">more</i></a>
                                     </td>

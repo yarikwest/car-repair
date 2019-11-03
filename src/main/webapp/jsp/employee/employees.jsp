@@ -18,7 +18,8 @@
             <h5>Pracownicy</h5>
             <div class="card">
                 <div class="card-content">
-                    <a href="/employees/add" class="btn-floating btn waves-effect waves-light red btn-add tooltipped"
+                    <a href="/app/employees/add"
+                       class="btn-floating btn waves-effect waves-light red btn-add tooltipped"
                        data-position="bottom" data-tooltip="dodaj"><i
                             class="material-icons">add</i></a>
                     <div class="table-overflow">
@@ -45,10 +46,10 @@
                                     <td>${employee.note}</td>
                                     <td>${employee.costOfWorkHour}</td>
                                     <td>
-                                        <a href="/orders?employeeId=${employee.id}&employeeName=${employee.firstName} ${employee.lastName}"
+                                        <a href="/app/orders?employeeId=${employee.id}&employeeName=${employee.firstName} ${employee.lastName}"
                                            class="tooltipped" data-position="bottom" data-tooltip="zlecenia"><i
                                                 class="material-icons">visibility</i></a></td>
-                                    <td><a href="/employees/edit?id=${employee.id}" class="tooltipped"
+                                    <td><a href="/app/employees/edit?id=${employee.id}" class="tooltipped"
                                            data-position="bottom"
                                            data-tooltip="edytuj"><i class="material-icons">edit</i></a></td>
                                     <td>
@@ -63,7 +64,7 @@
                                                     pracownika ${employee.firstName} ${employee.lastName}?</h4>
                                             </div>
                                             <div class="modal-footer">
-                                                <a href="/employees/delete?id=${employee.id}"
+                                                <a href="/app/employees/delete?id=${employee.id}"
                                                    class="modal-close waves-effect waves-green btn-flat">Usuń</a>
                                             </div>
                                         </div>

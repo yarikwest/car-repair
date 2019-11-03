@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/orders/details")
+@WebServlet("/app/orders/details")
 public class DetailsServlet extends HttpServlet {
     OrderDao orderDao = new OrderDao();
     CustomerDao customerDao = new CustomerDao();
