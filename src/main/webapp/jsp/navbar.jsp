@@ -25,7 +25,8 @@
             <a href="/app/reports" class="collection-item collection-item-own"><i
                     class="material-icons">insert_chart</i>Raporty</a>
         </c:if>
-        <a href="#" class="collection-item collection-item-own"><i class="material-icons">settings</i>Ustawienia
+        <a href="/app/users<c:if test="${!user.admin}">/details</c:if>" class="collection-item collection-item-own"><i
+                class="material-icons">settings</i>Ustawienia
             konta</a>
     </div>
 </div>

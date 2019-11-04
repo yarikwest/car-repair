@@ -17,6 +17,13 @@ public class User {
         this.admin = admin;
     }
 
+    public User(int id, String login, String password, boolean admin) {
+        this.id = id;
+        this.login = login;
+        this.password = PasswordUtil.createHash(password);
+        this.admin = admin;
+    }
+
     public int getId() {
         return id;
     }

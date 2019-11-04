@@ -12,3 +12,13 @@ $(document).ready(function () {
 $('#employee').change(function () {
     $("#cost_of_work_hour").val($('#employee option:selected').data('costOfWorkHour'));
 });
+
+document.getElementById("updateLoginLink").onclick = function () {
+    document.getElementById("updateLoginForm").submit();
+};
+document.getElementById("updatePassLink").onclick = function () {
+    document.getElementById("updatePassForm").submit();
+};
+document.getElementById("updateStatusLink").onclick = function () {
+    document.getElementById("updateStatusForm").submit();
+};

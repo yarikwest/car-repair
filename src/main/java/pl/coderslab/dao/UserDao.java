@@ -5,10 +5,7 @@ import org.apache.logging.log4j.Logger;
 import pl.coderslab.model.User;
 import pl.coderslab.utils.DbUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +13,13 @@ public class UserDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDao.class.getName());
 
     private static final String CREATE_QUERY = "insert into users(login, password, is_admin) value (?,?,?)";
-    private static final String READ_QUERY = "select * from users where login = ?";
+    private static final String READ_QUERY = "select * from users where id = ?";
+    private static final String READ_BY_LOGIN_QUERY = "select * from users where login = ?";
     private static final String UPDATE_QUERY = "update users set login = ?, password = ?, is_admin = ? where id = ?";
     private static final String DELETE_QUERY = "delete from users where id = ?";
     private static final String FIND_ALL_QUERY = "select * from users";
 
-    public User create(User user) {
+    public User create(User user) throws SQLIntegrityConstraintViolationException {
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, user.getLogin());
@@ -35,15 +33,41 @@ public class UserDao {
             }
             resultSet.close();
             return user;
+        } catch (SQLIntegrityConstraintViolationException e) {
+            LOGGER.error(e);
+            throw new SQLIntegrityConstraintViolationException(e);
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;
         }
     }
 
-    public User read(String login) {
+    public User read(int id) {
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(READ_QUERY)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            LOGGER.info(preparedStatement);
+            if (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setLogin(resultSet.getString("login"));
+                user.setPassword(resultSet.getString("password"));
+                user.setAdmin(resultSet.getBoolean("is_admin"));
+
+                resultSet.close();
+                return user;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        LOGGER.info("Row with id:" + id + " not exist");
+        return null;
+    }
+
+    public User readByLogin(String login) {
+        try (Connection connection = DbUtil.getConn();
+             PreparedStatement preparedStatement = connection.prepareStatement(READ_BY_LOGIN_QUERY)) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             LOGGER.info(preparedStatement);
@@ -64,7 +88,7 @@ public class UserDao {
         return null;
     }
 
-    public void update(User user) {
+    public void update(User user) throws SQLIntegrityConstraintViolationException {
         try (Connection connection = DbUtil.getConn();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
             preparedStatement.setString(1, user.getLogin());
@@ -73,6 +97,9 @@ public class UserDao {
             preparedStatement.setInt(4, user.getId());
             preparedStatement.executeUpdate();
             LOGGER.info(preparedStatement);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            LOGGER.error(e);
+            throw new SQLIntegrityConstraintViolationException(e);
         } catch (SQLException e) {
             LOGGER.error(e);
         }

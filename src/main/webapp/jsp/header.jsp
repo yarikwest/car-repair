@@ -16,7 +16,7 @@
     <li>
         <div class="teal">
             <div class="user-view">
-                <img src="../images/baseline_account_box_black_48dp.png" class="circle">
+                <img src="/images/baseline_account_box_black_48dp.png" class="circle">
                 <h5>${user.login}</h5>
                 <c:if test="${user.admin}">
                     <span>Administrator</span>
@@ -41,6 +41,7 @@
         </li>
     </c:if>
     <li>
-        <a href="#"><i class="material-icons">settings</i>Ustawienia konta</a>
+        <a href="/app/users<c:if test="${!user.admin}">/details</c:if>"><i class="material-icons">settings</i>Ustawienia
+            konta</a>
     </li>
 </ul>

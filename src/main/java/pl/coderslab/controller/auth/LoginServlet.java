@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        User user = userDao.read(login);
+        User user = userDao.readByLogin(login);
         if (user != null && user.getLogin().equals(login) && PasswordUtil.checkPassword(password, user.getPassword())) {
             req.getSession().setAttribute("user", user);
             resp.sendRedirect("/app");
