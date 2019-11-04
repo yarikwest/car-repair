@@ -24,7 +24,7 @@ values ('VW', 'Passat', '2008', 'OP4235S', '2019-12-10', 3),
        ('Audi', 'A6', '2018', 'DW9999F', '2020-06-15', 4),
        ('BMW', 'M3', '2015', 'OPO256V', '2019-12-15', 3);
 
-insert into orders (accept_repair, plan_start_repair, start_repair, end_repair , employee_id, problem_description,
+insert into orders (accept_repair, plan_start_repair, start_repair, end_repair, employee_id, problem_description,
                     repair_description, status_id, vehicle_id, cost_of_repair, cost_of_parts, cost_of_work_hour,
                     number_work_hour)
 values ('2019-10-10', '2019-10-10', '2019-10-10', '2019-10-11', 1, 'przegląd', 'wymiana oleju', 1, 1, 500, 300,
@@ -33,3 +33,7 @@ values ('2019-10-10', '2019-10-10', '2019-10-10', '2019-10-11', 1, 'przegląd', 
         (select employees.cost_of_work_hour from employees where employees.id = 2), 1),
        ('2019-10-15', '2019-10-15', '2019-10-20', '2019-10-25', 3, 'opony', 'wymiana opon', 3, 5, 700, 500,
         (select employees.cost_of_work_hour from employees where employees.id = 3), 2.25);
+
+insert into users (login, password, is_admin)
+values ('admin', '$2a$10$lGIIWjdRJwBIIj4NwoEEtOYV9n1pga3aO/zp0Rco8WzZuYsf2Bo3O', 1),
+       ('user', '$2a$10$GL7gG5RRlBeL/zwavCglTOkvfD5JiMRfv89O8prE/d9ZTu2rJHqhW', 0);
