@@ -26,7 +26,7 @@ System CRM do zarządzania działalnością warsztatu samochodowego.
 | USER  | user  | user  |
 
 ## Start
-Aplikacja została udostępniona pod adresem https://car-repair-crm.herokuapp.com/
+Aplikacja została udostępniona pod adresem https://car-repair-crm.herokuapp.com/app
 
 ## Technologję
 * [Java Servlet & JSP](https://www.oracle.com/java/technologies/java-servlet-tec.html)
